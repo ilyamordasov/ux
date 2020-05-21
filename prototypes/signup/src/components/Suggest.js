@@ -51,7 +51,7 @@ class Suggest extends React.Component {
   // You already implemented this logic above, so just use it.
   onSuggestionsFetchRequested = ({ value }) => {
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Token cd5426b6f89b5b6b0ae66f413304c14f7da18704");
+    myHeaders.append("Authorization", "Token "+process.env.DADATA);
     myHeaders.append("Content-Type", "application/json");
 
     var requestOptions = {
