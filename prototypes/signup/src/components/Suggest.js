@@ -51,7 +51,7 @@ class Suggest extends React.Component {
   // You already implemented this logic above, so just use it.
   onSuggestionsFetchRequested = ({ value }) => {
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Token "+process.env.DADATA);
+    myHeaders.append("Authorization", "Token "+process.env.REACT_APP_DADATA);
     myHeaders.append("Content-Type", "application/json");
 
     var requestOptions = {
@@ -89,6 +89,8 @@ class Suggest extends React.Component {
 
   render() {
     const { value, suggestions } = this.state;
+
+    console.log(">>> "+ process.env.REACT_APP_DADATA);
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
