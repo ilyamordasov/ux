@@ -90,8 +90,6 @@ class Suggest extends React.Component {
   render() {
     const { value, suggestions } = this.state;
 
-    console.log(">>> "+ process.env.REACT_APP_DADATA);
-
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
       placeholder: this.props.palceholder,

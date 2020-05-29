@@ -27,7 +27,7 @@ export default function App() {
           </Route>
         </Switch>
       </div>
-      <div style={{position: "fixed", right:20, bottom:20, backgroundColor: "#ff0000", width:72, height:72, borderRadius:100, textAlign:"center"}}><img src="https://images.assetsdelivery.com/compings_v2/vectorv/vectorv1912/vectorv191211128.jpg" style={{width:"100%", height:"100%"}}/></div>
+      <div style={{position: "fixed", right:40, bottom:40, backgroundColor: "#ff0000", width:72, height:72, borderRadius:100, textAlign:"center"}}><img src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/256/chat-2-icon.png" style={{width:"100%", height:"100%"}}/></div>
     </Router>
   );
 }

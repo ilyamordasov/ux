@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button,Form} from 'react-bootstrap';
@@ -15,25 +15,32 @@ import {
 
 import Suggest from '../components/Suggest';
 
+const elements = ['ООО АШАН', 'ООО РАДУГА', 'ООО ПИКСЕЛЬ'];
+
 class Form1 extends React.Component {
     constructor(props) {
       super(props);
       this.email = React.createRef();
-      this.state = { email: '', okveds: ['Укажите сферу деятельности'], showOKVED: false, isLoading: true };
+      this.state = { email: '', okveds: ['Укажите сферу деятельности'], showOKVED: false, isLoading: true, debitor: {} };
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
     }
   
-    handleChange(event) {    this.setState({email: event.target.value});  }
+    handleChange(event) {    this.setState({email: event.target.value});  console.log(event.target.value);}
     handleSubmit(event) {
         event.preventDefault();
     }
+
+    getEmail = (value) => {
+        this.setState({email: value.name});
+    };
 
     getOKVED = (value) => {
         let okveds = [];
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Token "+process.env.REACT_APP_DADATA);
         myHeaders.append("Content-Type", "application/json");
+        this.setState({debitor: value});
     
         var requestOptions = {
           method: 'POST',
@@ -51,6 +58,10 @@ class Form1 extends React.Component {
           setTimeout(() => this.setState({ isLoading: false }), 1000);
         })
         .catch(error => console.log('error', error));
+    };
+
+    rand = (min, max) => {
+        return Math.ceil(Math.random() * (max - min) + min);
     };
   
     render() {
@@ -94,14 +105,41 @@ class Form1 extends React.Component {
                                 </DropdownButton>
                             </Col>
                         </Row>
-                        { this.state.isLoading ? 
-                        <Row style={{height:50, textAlign:"center", marginTop:50}} display="none">
+                        <Row>
                             <Col>
-                                <Spinner animation="border" />
+                                {/* { this.state.isLoading ? <Spinner animation="border" /> : null } */}
+                                <Form.Group style={{width: "100%", backgroundColor: (this.state.debitor.name != "ООО \"ЛЮБЕРГАЗ\"") ? "#dff0d8" : "#ffcfcf", marginTop:40, borderRadius:16}}>
+                                    <div style={{ padding:40 }}>
+                                        <h2>{this.state.debitor.name}</h2>
+                                        <h6>ИНН: {this.state.debitor.inn}</h6>
+                                        { (this.state.debitor.name != "ООО \"ЛЮБЕРГАЗ\"") ?
+                                            <div>
+                                                <Form.Label>Доступный лимит</Form.Label>
+                                                <Form.Control type="text" value="15 000 000" />
+                                            </div>
+                                        :
+                                            <div>
+                                                <br/><br/><br/>
+                                                <h3>К сожалению, мы не работаем с этим дебитором</h3>
+                                                <h6>Но, возможно вам будут интересны следующие дебиторы? Или оставьте свою почту и мы оповестим вас, когда мы подключим {this.state.debitor.name}</h6><br/>
+                                                <Container>
+                                                    <Row>
+                                                    { elements.map((value, index) => {
+                                                        return <Col style={{backgroundColor: "#fff", width:200, height:100, borderRadius:8, padding:8}} md={{offset:1}}>
+                                                            <h6>{value}</h6>
+                                                            <h8>ИНН: {this.rand(999999, 9999999)}</h8><br/>
+                                                            <h8>Доступный лимит: {this.rand(100000, 15000000)}</h8>
+                                                        </Col>
+                                                    })}
+                                                    </Row>
+                                                </Container>
+                                            </div>
+                                        }
+                                    </div>
+                                </Form.Group>
                             </Col>
-                        </Row> : null }
+                        </Row>
                         </div> : null }
-                        <Row style={{height:100}}><Col></Col></Row>
                         <Row>
                             <Col>
                                 <Form.Group controlId="formBasicEmail">
