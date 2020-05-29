@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {Link} from "react-router-dom";
 
@@ -19,7 +19,7 @@ class Form1 extends React.Component {
     constructor(props) {
       super(props);
       this.email = React.createRef();
-      this.state = { email: '', okveds: ['Укажите сферу деятельности'] };
+      this.state = { email: '', okveds: ['Укажите сферу деятельности'], showOKVED: false, isLoading: true };
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -47,7 +47,8 @@ class Form1 extends React.Component {
           result.suggestions[0].data.okveds.map(element => {
             okveds.push(element.name);
           });
-          this.setState({ okveds: okveds });
+          this.setState({ okveds: okveds, showOKVED: true });
+          setTimeout(() => this.setState({ isLoading: false }), 1000);
         })
         .catch(error => console.log('error', error));
     };
@@ -81,6 +82,8 @@ class Form1 extends React.Component {
                                 </Form.Group>
                             </Col>
                         </Row>
+                        { this.state.showOKVED ? 
+                        <div>
                         <Row>
                             <Col>
                                 <h4>Правильно указана сфера деятельности?</h4>
@@ -91,11 +94,13 @@ class Form1 extends React.Component {
                                 </DropdownButton>
                             </Col>
                         </Row>
+                        { this.state.isLoading ? 
                         <Row style={{height:50, textAlign:"center", marginTop:50}} display="none">
                             <Col>
                                 <Spinner animation="border" />
                             </Col>
-                        </Row>
+                        </Row> : null }
+                        </div> : null }
                         <Row style={{height:100}}><Col></Col></Row>
                         <Row>
                             <Col>
