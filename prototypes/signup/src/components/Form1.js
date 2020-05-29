@@ -116,25 +116,28 @@ class Form1 extends React.Component {
                                             <div>
                                                 <Form.Label>Доступный лимит</Form.Label>
                                                 <Form.Control type="text" value="15 000 000" />
+                                                <br/>
+                                                <h3>Мы рады сообщить, что дебитор {this.state.debitor.name} уже есть в нашей системе, создайте учетную запись, чтобы начать работать с этим дебитором.</h3><br/><br/>
+                                                <h6>Также вас могут заинтересовать</h6>
                                             </div>
                                         :
                                             <div>
                                                 <br/><br/><br/>
-                                                <h3>К сожалению, мы не работаем с этим дебитором</h3>
+                                                <h3>К сожалению, мы не работаем с этим дебитором</h3><br/><br/>
                                                 <h6>Но, возможно вам будут интересны следующие дебиторы? Или оставьте свою почту и мы оповестим вас, когда мы подключим {this.state.debitor.name}</h6><br/>
-                                                <Container>
-                                                    <Row>
-                                                    { elements.map((value, index) => {
-                                                        return <Col style={{backgroundColor: "#fff", width:200, height:100, borderRadius:8, padding:8}} md={{offset:1}}>
-                                                            <h6>{value}</h6>
-                                                            <h8>ИНН: {this.rand(999999, 9999999)}</h8><br/>
-                                                            <h8>Доступный лимит: {this.rand(100000, 15000000)}</h8>
-                                                        </Col>
-                                                    })}
-                                                    </Row>
-                                                </Container>
                                             </div>
                                         }
+                                            <Container>
+                                                <Row>
+                                                { elements.map((value, index) => {
+                                                    return <Col style={{backgroundColor: "#fff", width:200, height:100, borderRadius:8, padding:8}} md={{offset:1}}>
+                                                        <h6>{value}</h6>
+                                                        <h8>ИНН: {this.rand(999999, 9999999)}</h8><br/>
+                                                        <h8>Доступный лимит: {this.rand(100000, 15000000)}</h8>
+                                                    </Col>
+                                                })}
+                                                </Row>
+                                            </Container>
                                     </div>
                                 </Form.Group>
                             </Col>
