@@ -11,9 +11,11 @@ import {
     Col,
     DropdownButton,
     Dropdown,
+    Modal,
 } from 'react-bootstrap';
 
 import Suggest from '../components/Suggest';
+import PrimaryBtn from './custom/PrimaryBtn';
 
 const elements = ['ООО АШАН', 'ООО РАДУГА', 'ООО ПИКСЕЛЬ'];
 
@@ -21,7 +23,7 @@ class Form1 extends React.Component {
     constructor(props) {
       super(props);
       this.email = React.createRef();
-      this.state = { email: '', okveds: ['Укажите сферу деятельности'], showOKVED: false, isLoading: true, debitor: {} };
+      this.state = { email: '', okveds: ['Укажите сферу деятельности'], showOKVED: false, isLoading: true, debitor: {}, modal:false };
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -63,6 +65,9 @@ class Form1 extends React.Component {
     rand = (min, max) => {
         return Math.ceil(Math.random() * (max - min) + min);
     };
+
+    handleClose = () => this.setState({modal: false});
+    handleShow = () => this.setState({modal: true});
   
     render() {
       return (
@@ -82,13 +87,7 @@ class Form1 extends React.Component {
                         <Row>
                             <Col>
                                 <Form.Group controlId="formBasicEmail">
-                                    <h4>Ваша компания</h4>
-                                    <Suggest placeholder="Наименование компании или ИНН" method="party"/>
-                                </Form.Group>
-                            </Col>
-                            <Col>
-                                <Form.Group controlId="formBasicEmail">
-                                    <h4>Дебитор</h4>
+                                    <h4>Введите Дебитор</h4>
                                     <Suggest placeholder="Наименование компании или ИНН" method="party" callback={this.getOKVED}/>
                                 </Form.Group>
                             </Col>
@@ -100,7 +99,7 @@ class Form1 extends React.Component {
                                 <h4>Правильно указана сфера деятельности?</h4>
                                 <DropdownButton id="dropdown-basic-button" title={this.state.okveds[0]} variant="secondary" width="100%">
                                 {this.state.okveds.map( (variant) => (
-                                    <Dropdown.Item>{variant}</Dropdown.Item>
+                                    <Dropdown.Item >{variant}</Dropdown.Item>
                                 ))}
                                 </DropdownButton>
                             </Col>
@@ -138,11 +137,110 @@ class Form1 extends React.Component {
                                                 })}
                                                 </Row>
                                             </Container>
+                                        { (this.state.debitor.name != "ООО \"ЛЮБЕРГАЗ\"") ?
+                                            <Container style={{backgroundColor:"#fff", marginTop:40, padding:20}}>
+                                                <Row style={{marginBottom:40}}>
+                                                    <Col>
+                                                        <h2>Начать работу с данным дебитором</h2>
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col>
+                                                        <Form.Group controlId="formBasicEmail">
+                                                            <Form.Label>Ваша компания</Form.Label>
+                                                            <Suggest placeholder="Наименование компании или ИНН" method="party"/>
+                                                        </Form.Group>
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col>
+                                                        <Form.Group controlId="formBasicEmail">
+                                                            <Form.Label>Введите ваш email</Form.Label>
+                                                            <Suggest placeholder="info@example.com" callback={this.getEmail} method="email"/>
+                                                            <Form.Text className="text-muted" style={{color:"#ff0000"}}>{this.state.errors}</Form.Text>
+                                                        </Form.Group>
+                                                    </Col>
+                                                    <Col>
+                                                        <Form.Group controlId="formBasicPassword">
+                                                            <Form.Label>Задайте пароль</Form.Label>
+                                                            <Form.Control type="password" placeholder="Password" />
+                                                        </Form.Group>
+                                                    </Col>
+                                                    <Col>
+                                                        <Form.Group controlId="retypeBasicPassword">
+                                                            <Form.Label>Повторите пароль</Form.Label>
+                                                            <Form.Control type="password" placeholder="Password" />
+                                                        </Form.Group>
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col>
+                                                        <Form.Group>
+                                                            <input type="checkbox" id="claims" checked/>
+                                                            <label>&nbsp;&nbsp;&nbsp;Я принимаю <a href="#">условия передачи информации</a></label>
+                                                        </Form.Group>
+                                                        <Link to={"/step1/" + this.state.email}>
+                                                            <Button variant="primary">
+                                                                Отправить
+                                                            </Button>
+                                                        </Link>
+                                                    </Col>
+                                                </Row>
+                                            </Container>
+                                        :
+                                            <Container style={{backgroundColor:"#fff", marginTop:40, padding:20}}>
+                                                    <Row style={{marginBottom:40}}>
+                                                        <Col>
+                                                            <h2>Сообщить мне о подключении {this.state.debitor.name}</h2>
+                                                            <Form.Group controlId="retypeBasicPassword">
+                                                                <Suggest placeholder="info@example.com" callback={this.getEmail} method="email"/>
+                                                            </Form.Group>
+                                                        </Col>
+                                                    </Row>
+                                            </Container>
+                                    }
                                     </div>
                                 </Form.Group>
                             </Col>
                         </Row>
                         </div> : null }
+                        { this.state.debitor.name == null || (this.state.debitor.name == "ООО \"ЛЮБЕРГАЗ\"") ?
+                            <div>
+                                <Row style={{height:50}}></Row>
+                                <Row>
+                                    <Col style={{textAlign:"center"}}>
+                                        <h6>или</h6>
+                                    </Col>
+                                </Row>
+                                <Row style={{height:50}}></Row>
+                                <Row>
+                                    <Col style={{textAlign:"center"}}>
+                                        {/* <Link to={"/step1/" + this.state.email}> */}
+                                            <Button variant="primary" onClick={this.handleShow}>
+                                                Зарегистрируйся
+                                            </Button>
+                                        {/* </Link> */}
+                                    </Col>
+                                </Row>
+                            </div> : null
+                        }
+                    </Form>
+                </Col>
+            </Row>
+            <Modal show={this.state.modal} onHide={this.handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Регистрация нового пользователя</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Container>
+                        <Row>
+                            <Col>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Ваша компания</Form.Label>
+                                    <Suggest placeholder="Наименование компании или ИНН" method="party"/>
+                                </Form.Group>
+                            </Col>
+                        </Row>
                         <Row>
                             <Col>
                                 <Form.Group controlId="formBasicEmail">
@@ -151,12 +249,16 @@ class Form1 extends React.Component {
                                     <Form.Text className="text-muted" style={{color:"#ff0000"}}>{this.state.errors}</Form.Text>
                                 </Form.Group>
                             </Col>
+                        </Row>
+                        <Row>
                             <Col>
                                 <Form.Group controlId="formBasicPassword">
                                     <Form.Label>Задайте пароль</Form.Label>
                                     <Form.Control type="password" placeholder="Password" />
                                 </Form.Group>
                             </Col>
+                        </Row>
+                        <Row>
                             <Col>
                                 <Form.Group controlId="retypeBasicPassword">
                                     <Form.Label>Повторите пароль</Form.Label>
@@ -164,22 +266,20 @@ class Form1 extends React.Component {
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Row>
-                            <Col>
-                                <Form.Group>
-                                    <input type="checkbox" id="claims" checked/>
-                                    <label>&nbsp;&nbsp;&nbsp;Я принимаю <a href="#">условия передачи информации</a></label>
-                                </Form.Group>
-                                <Link to={"/step1/" + this.state.email}>
-                                    <Button variant="primary">
-                                        Отправить
-                                    </Button>
-                                </Link>
-                            </Col>
-                        </Row>
-                    </Form>
-                </Col>
-            </Row>
+                    </Container>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Form.Group>
+                        <input type="checkbox" id="claims" checked/>
+                        <label>&nbsp;&nbsp;&nbsp;Я принимаю <a href="#">условия передачи информации</a></label>
+                    </Form.Group>
+                    <Link to={"/step1/" + this.state.email}>
+                        <Button variant="primary" onClick={this.handleClose}>
+                            Отправить
+                        </Button>
+                    </Link>
+                </Modal.Footer>
+            </Modal>
         </Container>
       );
     }
