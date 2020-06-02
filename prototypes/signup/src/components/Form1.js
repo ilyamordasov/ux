@@ -73,19 +73,19 @@ class Form1 extends React.Component {
       return (
         <Container className="p-3" visible={this.props.visible}>
             <Row style={{height:200}}>
-                <Col>
+                <Col sm>
                     <img src="https://factoringplus.ru/images/logo.svg"></img>
                 </Col>
-                <Col style={{right:0}} ref={this.email}>
+                <Col sm style={{right:0}} ref={this.email}>
                     <label>Зарегистрироваться</label>
                 </Col>
             </Row>
             <Row>
-                <Col>
+                <Col sm>
                     <h1 style={{textAlign:"center", marginBottom:50}}>Проверьте возможность предоставления лимита по вашему дебитору</h1>
                     <Form style={{border: "2px rgba(0,0,0,0.1) solid", padding:40}}>
                         <Row>
-                            <Col>
+                            <Col sm>
                                 <Form.Group controlId="formBasicEmail">
                                     <h4>Введите Дебитор</h4>
                                     <Suggest placeholder="Наименование компании или ИНН" method="party" callback={this.getOKVED}/>
@@ -95,7 +95,7 @@ class Form1 extends React.Component {
                         { this.state.showOKVED ? 
                         <div>
                         <Row>
-                            <Col>
+                            <Col sm>
                                 <h4>Правильно указана сфера деятельности?</h4>
                                 <DropdownButton id="dropdown-basic-button" title={this.state.okveds[0]} variant="secondary" width="100%">
                                 {this.state.okveds.map( (variant) => (
@@ -105,7 +105,7 @@ class Form1 extends React.Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col>
+                            <Col sm>
                                 {/* { this.state.isLoading ? <Spinner animation="border" /> : null } */}
                                 <Form.Group style={{width: "100%", backgroundColor: (this.state.debitor.name != "ООО \"ЛЮБЕРГАЗ\"") ? "#dff0d8" : "#ffcfcf", marginTop:40, borderRadius:16}}>
                                     <div style={{ padding:40 }}>
@@ -129,7 +129,7 @@ class Form1 extends React.Component {
                                             <Container>
                                                 <Row>
                                                 { elements.map((value, index) => {
-                                                    return <Col style={{backgroundColor: "#fff", width:200, height:100, borderRadius:8, padding:8}} md={{offset:1}}>
+                                                    return <Col sm style={{backgroundColor: "#fff", width:200, height:100, borderRadius:8, padding:8}} md={{offset:1}}>
                                                         <h6>{value}</h6>
                                                         <h8>ИНН: {this.rand(999999, 9999999)}</h8><br/>
                                                         <h8>Доступный лимит: {this.rand(100000, 15000000)}</h8>
@@ -140,12 +140,12 @@ class Form1 extends React.Component {
                                         { (this.state.debitor.name != "ООО \"ЛЮБЕРГАЗ\"") ?
                                             <Container style={{backgroundColor:"#fff", marginTop:40, padding:20}}>
                                                 <Row style={{marginBottom:40}}>
-                                                    <Col>
+                                                    <Col sm>
                                                         <h2>Начать работу с данным дебитором</h2>
                                                     </Col>
                                                 </Row>
                                                 <Row>
-                                                    <Col>
+                                                    <Col sm>
                                                         <Form.Group controlId="formBasicEmail">
                                                             <Form.Label>Ваша компания</Form.Label>
                                                             <Suggest placeholder="Наименование компании или ИНН" method="party"/>
@@ -153,20 +153,20 @@ class Form1 extends React.Component {
                                                     </Col>
                                                 </Row>
                                                 <Row>
-                                                    <Col>
+                                                    <Col sm>
                                                         <Form.Group controlId="formBasicEmail">
                                                             <Form.Label>Введите ваш email</Form.Label>
                                                             <Suggest placeholder="info@example.com" callback={this.getEmail} method="email"/>
                                                             <Form.Text className="text-muted" style={{color:"#ff0000"}}>{this.state.errors}</Form.Text>
                                                         </Form.Group>
                                                     </Col>
-                                                    <Col>
+                                                    <Col sm>
                                                         <Form.Group controlId="formBasicPassword">
                                                             <Form.Label>Задайте пароль</Form.Label>
                                                             <Form.Control type="password" placeholder="Password" />
                                                         </Form.Group>
                                                     </Col>
-                                                    <Col>
+                                                    <Col sm>
                                                         <Form.Group controlId="retypeBasicPassword">
                                                             <Form.Label>Повторите пароль</Form.Label>
                                                             <Form.Control type="password" placeholder="Password" />
@@ -174,7 +174,7 @@ class Form1 extends React.Component {
                                                     </Col>
                                                 </Row>
                                                 <Row>
-                                                    <Col>
+                                                    <Col sm>
                                                         <Form.Group>
                                                             <input type="checkbox" id="claims" checked/>
                                                             <label>&nbsp;&nbsp;&nbsp;Я принимаю <a href="#">условия передачи информации</a></label>
@@ -190,7 +190,7 @@ class Form1 extends React.Component {
                                         :
                                             <Container style={{backgroundColor:"#fff", marginTop:40, padding:20}}>
                                                     <Row style={{marginBottom:40}}>
-                                                        <Col>
+                                                        <Col sm>
                                                             <h2>Сообщить мне о подключении {this.state.debitor.name}</h2>
                                                             <Form.Group controlId="retypeBasicPassword">
                                                                 <Suggest placeholder="info@example.com" callback={this.getEmail} method="email"/>
@@ -208,13 +208,13 @@ class Form1 extends React.Component {
                             <div>
                                 <Row style={{height:50}}></Row>
                                 <Row>
-                                    <Col style={{textAlign:"center"}}>
+                                    <Col sm style={{textAlign:"center"}}>
                                         <h6>или</h6>
                                     </Col>
                                 </Row>
                                 <Row style={{height:50}}></Row>
                                 <Row>
-                                    <Col style={{textAlign:"center"}}>
+                                    <Col sm style={{textAlign:"center"}}>
                                         {/* <Link to={"/step1/" + this.state.email}> */}
                                             <Button variant="primary" onClick={this.handleShow}>
                                                 Зарегистрируйся
@@ -234,7 +234,7 @@ class Form1 extends React.Component {
                 <Modal.Body>
                     <Container>
                         <Row>
-                            <Col>
+                            <Col sm>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Ваша компания</Form.Label>
                                     <Suggest placeholder="Наименование компании или ИНН" method="party"/>
@@ -242,7 +242,7 @@ class Form1 extends React.Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col>
+                            <Col sm>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Введите ваш email</Form.Label>
                                     <Suggest placeholder="info@example.com" callback={this.getEmail} method="email"/>
@@ -251,7 +251,7 @@ class Form1 extends React.Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col>
+                            <Col sm>
                                 <Form.Group controlId="formBasicPassword">
                                     <Form.Label>Задайте пароль</Form.Label>
                                     <Form.Control type="password" placeholder="Password" />
@@ -259,7 +259,7 @@ class Form1 extends React.Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col>
+                            <Col sm>
                                 <Form.Group controlId="retypeBasicPassword">
                                     <Form.Label>Повторите пароль</Form.Label>
                                     <Form.Control type="password" placeholder="Password" />

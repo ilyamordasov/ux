@@ -28,6 +28,7 @@ export default function App() {
         </Switch>
       </div>
       <div style={{position: "fixed", right:40, bottom:40, backgroundColor: "#ff0000", width:72, height:72, borderRadius:100, textAlign:"center"}}><img src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/256/chat-2-icon.png" style={{width:"100%", height:"100%"}}/></div>
+      <div>{process.env.REVIEW_ID}</div>
     </Router>
   );
 }
