@@ -5,7 +5,7 @@ import Stepper from 'react-stepper-horizontal';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {Button,Form} from 'react-bootstrap';
+import {Button,Form,InputGroup} from 'react-bootstrap';
 import {Container,Row,Col} from 'react-bootstrap';
 
 import Suggest from '../components/Suggest';
@@ -34,6 +34,16 @@ class Step2 extends React.Component {
                 </Col>
                 <Col style={{right:0}}>
                   <label>{this.state.email}</label>
+                  <br/><br/>
+                  <Form.Group style={{width:300}}>
+                    <Form.Label>Предоставить доступ для заполнения</Form.Label>
+                    <InputGroup className="mb-2">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>⎘</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control type="text" value="http://fplus.ru/jsd64d" />
+                    </InputGroup>
+                  </Form.Group>
                 </Col>
                 <Col>
                   <Link to="/form0">
@@ -43,6 +53,7 @@ class Step2 extends React.Component {
                   </Link>
                 </Col>
             </Row>
+            <Row style={{height:100}}></Row>
             <Row>
               <Col>
               <Stepper steps={ [{title: 'Step One'}, {title: 'Step Two'}, {title: 'Step Three'}, {title: 'Step Four'}] } activeStep={ 0 } />
