@@ -8,21 +8,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button,Form,InputGroup} from 'react-bootstrap';
 import {Container,Row,Col} from 'react-bootstrap';
 
+import { format } from 'date-fns'
+
 import Suggest from '../components/Suggest';
 
 class Step2 extends React.Component {
+  
     constructor(props) {
       super(props);
       this.state = {
-        inn: "",
-        ogrn: "",
-        email: window.location.pathname.split("/")[2]
+        company: {},
+        email: window.location.pathname.split("/")[2],
+        flag: false
       };
     }
 
     setData = (value) => {
-      console.log(value.inn);
-      this.setState({inn:value.inn, ogrn:value.ogrn});
+      this.setState({flag:true});
+      this.setState({company:value.data});
     };
   
     render() {
@@ -56,7 +59,7 @@ class Step2 extends React.Component {
             <Row style={{height:100}}></Row>
             <Row>
               <Col>
-              <Stepper steps={ [{title: 'Step One'}, {title: 'Step Two'}, {title: 'Step Three'}, {title: 'Step Four'}] } activeStep={ 0 } />
+              <Stepper steps={ [{title: 'Общие данные'}, {title: 'Банки, в которых открыты р/с компании'}, {title: 'Руководитель организации'}, {title: 'Учредители организации'}] } activeStep={ 0 } />
                 <br/>
               </Col>
             </Row>
@@ -69,38 +72,89 @@ class Step2 extends React.Component {
                       <Form.Group controlId="formBasicEmail">
                           <Form.Label>Наименование компании</Form.Label>
                           <Suggest placeholder="ИНН или наименование компании" callback={this.setData} method="party"/>
+                          <Form.Label>{this.state.flag ? this.state.company.data.name.full_with_opf : ""}</Form.Label>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm>
+                      <Form.Group controlId="formBasicEmail">
+                          <Form.Label>Юридический адрес</Form.Label>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.address.unrestricted_value : ""}/>
+                      </Form.Group>
+                    </Col>
+                    <Col sm>
+                      <Form.Group controlId="formBasicEmail">
+                          <Form.Label>Адрес фактического местонахождения</Form.Label>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.address.unrestricted_value : ""}/>
+                          <input type="checkbox" id="claims" checked/>
+                          <label>&nbsp;&nbsp;&nbsp;Совпадает с юридическим адресом</label>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm>
+                      <Form.Group controlId="formBasicEmail">
+                          <Form.Label>Организационно-правовая форма</Form.Label>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.opf.full : ""} disabled/>
                       </Form.Group>
                     </Col>
                     <Col sm>
                       <Form.Group controlId="formBasicEmail">
                           <Form.Label>ИНН компании</Form.Label>
-                          <Form.Control type="text" value={this.state.inn} disabled/>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.inn : ""} disabled/>
                       </Form.Group>
                     </Col>
                     <Col sm> 
                       <Form.Group controlId="formBasicEmail">
                           <Form.Label>ОГРН компании</Form.Label>
-                          <Form.Control type="text" value={this.state.ogrn} disabled/>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.ogrn : ""} disabled/>
+                      </Form.Group>
+                    </Col>
+                    <Col sm> 
+                      <Form.Group controlId="formBasicEmail">
+                          <Form.Label>КПП компании</Form.Label>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.kpp : ""} disabled/>
                       </Form.Group>
                     </Col>
                   </Row>
                   <Row>
                     <Col sm>
                       <Form.Group controlId="formBasicPassword">
-                          <Form.Label>ФИО</Form.Label>
-                          <Suggest placeholder="Иванов Иван Иванович" method="fio"/>
+                          <Form.Label>Код и наименование осн. вида деятельности</Form.Label>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.okved : ""} disabled/>
                       </Form.Group>
                     </Col>
                     <Col sm>
                       <Form.Group controlId="retypeBasicPassword">
-                          <Form.Label>Ваша должность</Form.Label>
-                          <Form.Control type="text" placeholder="Менеджер" />
+                          <Form.Label>Чем именно занимается компания</Form.Label>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.okved : ""} disabled/>
                       </Form.Group>
                     </Col>
                     <Col sm>
                       <Form.Group controlId="retypeBasicPassword">
-                          <Form.Label>Ваш номер телефона</Form.Label>
-                          <Form.Control type="text" placeholder="+7 903 000 00 00" />
+                          <Form.Label>Дата регистрации</Form.Label>
+                          <Form.Control type="text" value={this.state.flag ? format(new Date(this.state.company.data.state.registration_date), "dd.mm.yyyy") : ""} disabled/>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm>
+                      <Form.Group controlId="formBasicPassword">
+                          <Form.Label>Вебсайт</Form.Label>
+                          <Form.Control type="text" value=""/>
+                      </Form.Group>
+                    </Col>
+                    <Col sm>
+                      <Form.Group controlId="retypeBasicPassword">
+                          <Form.Label>Email</Form.Label>
+                          <Form.Control type="text" value=""/>
+                      </Form.Group>
+                    </Col>
+                    <Col sm>
+                      <Form.Group controlId="retypeBasicPassword">
+                          <Form.Label>Телефон</Form.Label>
+                          <Form.Control type="text" value=""/>
                       </Form.Group>
                     </Col>
                   </Row>

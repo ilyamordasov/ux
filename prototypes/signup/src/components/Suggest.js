@@ -66,7 +66,7 @@ class Suggest extends React.Component {
         .then(response => response.json())
         .then(result => {
           result.suggestions.map(element => {
-            languages.push({name: element.value, inn:element.data.inn, ogrn:element.data.ogrn});
+            languages.push({name: element.value, inn:element.data.inn, ogrn:element.data.ogrn, data:element});
           });
           this.setState({ suggestions: languages });
         })
