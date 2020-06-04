@@ -65,7 +65,7 @@ class Step2 extends React.Component {
             </Row>
             <Row>
               <Col>
-                <h1>Информация о компании</h1><br/><br/><br/>
+                <h1>Общие данные</h1><br/><br/><br/>
                 <Form>
                   <Row>
                     <Col sm>
