@@ -15,12 +15,15 @@
     "react": "^16.13.1",
     "react-autosuggest": "^10.0.2",
     "react-bootstrap": "^1.0.1",
+    "react-bootstrap-date-picker": "^5.1.0",
     "react-chat-elements": "^10.9.2",
+    "react-datepicker": "^3.0.0",
     "react-dom": "^16.13.1",
     "react-moment": "^0.9.7",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-stepper-horizontal": "^1.0.11",
+    "react-toggle": "^4.1.1",
     "validate.js": "^0.13.1"
   },
   "scripts": {

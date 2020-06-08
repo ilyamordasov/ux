@@ -35,6 +35,11 @@ class Form1 extends React.Component {
 
     getEmail = (value) => {
         this.setState({email: value.name});
+        this.props.email(value.name);
+    };
+
+    getINN = (value) => {
+        this.props.client(value);
     };
 
     getOKVED = (value) => {
@@ -74,7 +79,9 @@ class Form1 extends React.Component {
         <Container className="p-3" visible={this.props.visible}>
             <Row style={{height:200}}>
                 <Col sm>
-                    <img src="https://factoringplus.ru/images/logo.svg"></img>
+                    <Link to="/">
+                        <img src="https://factoringplus.ru/images/logo.svg"></img>
+                    </Link>
                 </Col>
                 <Col sm style={{right:0}} ref={this.email}>
                     <label>Зарегистрироваться</label>
@@ -127,7 +134,7 @@ class Form1 extends React.Component {
                                                     <Col sm>
                                                         <Form.Group controlId="formBasicEmail">
                                                             <Form.Label>Ваша компания</Form.Label>
-                                                            <Suggest placeholder="Наименование компании или ИНН" method="party"/>
+                                                            <Suggest placeholder="Наименование компании или ИНН" method="party" callback={this.getINN}/>
                                                         </Form.Group>
                                                     </Col>
                                                 </Row>
@@ -158,7 +165,7 @@ class Form1 extends React.Component {
                                                             <input type="checkbox" id="claims" checked/>
                                                             <label>&nbsp;&nbsp;&nbsp;Я принимаю <a href="#">условия передачи информации</a></label>
                                                         </Form.Group>
-                                                        <Link to={"/step1/" + this.state.email}>
+                                                        <Link to={"/step1"}>
                                                             <Button variant="primary">
                                                                 Отправить
                                                             </Button>
@@ -230,7 +237,7 @@ class Form1 extends React.Component {
                                 <Row style={{height:50}}></Row>
                                 <Row>
                                     <Col sm style={{textAlign:"center"}}>
-                                        {/* <Link to={"/step1/" + this.state.email}> */}
+                                        {/* <Link to={"/step1"}> */}
                                             <Button variant="primary" onClick={this.handleShow}>
                                                 Зарегистрируйся
                                             </Button>
@@ -252,7 +259,7 @@ class Form1 extends React.Component {
                             <Col sm>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Ваша компания</Form.Label>
-                                    <Suggest placeholder="Наименование компании или ИНН" method="party"/>
+                                    <Suggest placeholder="Наименование компании или ИНН" method="party"  callback={this.getINN}/>
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -288,7 +295,7 @@ class Form1 extends React.Component {
                         <input type="checkbox" id="claims" checked/>
                         <label>&nbsp;&nbsp;&nbsp;Я принимаю <a href="#">условия передачи информации</a></label>
                     </Form.Group>
-                    <Link to={"/step1/" + this.state.email}>
+                    <Link to={"/step1"}>
                         <Button variant="primary" onClick={this.handleClose}>
                             Отправить
                         </Button>

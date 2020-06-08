@@ -16,9 +16,10 @@ class Step3 extends React.Component {
   
     constructor(props) {
       super(props);
+      
       this.state = {
         company: {},
-        email: window.location.pathname.split("/")[2],
+        email: this.props.email,
         flag: false
       };
     }
@@ -33,7 +34,9 @@ class Step3 extends React.Component {
         <Container className="p-3">
             <Row style={{height:100}}>
                 <Col>
-                    <img src="https://factoringplus.ru/images/logo.svg"></img>
+                <Link to="/">
+                        <img src="https://factoringplus.ru/images/logo.svg"></img>
+                    </Link>
                 </Col>
                 <Col style={{right:0}}>
                   <label>{this.state.email}</label>
@@ -59,7 +62,7 @@ class Step3 extends React.Component {
             <Row style={{height:100}}></Row>
             <Row>
               <Col>
-              <Stepper steps={ [{title: 'Общие данные'}, {title: 'Банки, в которых открыты р/с компании'}, {title: 'Руководитель организации'}, {title: 'Учредители организации'}] } activeStep={ 1 } />
+              <Stepper steps={ [{title: 'Общие данные', href: '/step2'}, {title: 'Банки, в которых открыты р/с компании'}, {title: 'Руководитель организации'}, {title: 'Учредители организации'}] } activeStep={ 1 } />
                 <br/>
               </Col>
             </Row>
@@ -103,7 +106,7 @@ class Step3 extends React.Component {
             <Row>
                 <Col>
                   <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
-                    <Link to="/step3">
+                    <Link to="/step4">
                       <Button variant="primary">Далее</Button>
                     </Link>
                   </div>

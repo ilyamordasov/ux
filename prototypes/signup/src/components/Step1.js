@@ -9,9 +9,8 @@ import Suggest from '../components/Suggest';
 class Step1 extends React.Component {
     constructor(props) {
       super(props);
-      
       this.state = {
-        email: window.location.pathname.split("/")[2]
+        email: this.props.email
       };
     }
   
@@ -20,7 +19,9 @@ class Step1 extends React.Component {
         <Container className="p-3">
             <Row style={{height:200}}>
                 <Col>
-                    <img src="https://factoringplus.ru/images/logo.svg"></img>
+                    <Link to="/">
+                        <img src="https://factoringplus.ru/images/logo.svg"></img>
+                    </Link>
                 </Col>
                 <Col style={{right:0}}>
                   <label>{this.state.email}</label>

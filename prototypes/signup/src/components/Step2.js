@@ -16,11 +16,17 @@ class Step2 extends React.Component {
   
     constructor(props) {
       super(props);
+      console.log(this.props.client);
       this.state = {
         company: {},
-        email: window.location.pathname.split("/")[2],
-        flag: false
+        email: this.props.email,
+        flag: false,
+        isEmpty: false
       };
+
+      if (Object.keys(this.props.client).length === 0 && this.props.client.constructor === Object) {
+        this.state.isEmpty = true;
+      }
     }
 
     setData = (value) => {
@@ -33,7 +39,9 @@ class Step2 extends React.Component {
         <Container className="p-3">
             <Row style={{height:100}}>
                 <Col>
+                  <Link to="/">
                     <img src="https://factoringplus.ru/images/logo.svg"></img>
+                  </Link>
                 </Col>
                 <Col style={{right:0}}>
                   <label>{this.state.email}</label>
@@ -71,8 +79,9 @@ class Step2 extends React.Component {
                     <Col sm>
                       <Form.Group controlId="formBasicEmail">
                           <Form.Label>Наименование компании</Form.Label>
-                          <Suggest placeholder="ИНН или наименование компании" callback={this.setData} method="party"/>
-                          <Form.Label>{this.state.flag ? this.state.company.data.name.full_with_opf : ""}</Form.Label>
+                          {console.log("ssss")}
+                          <Suggest placeholder="ИНН или наименование компании" callback={this.setData} method="party" value={this.state.isEmpty ? '' : this.props.client.data.value}/>
+                          <Form.Label>{this.state.flag ? this.state.company.data.name.full_with_opf : this.state.isEmpty ? '' : this.props.client.data.data.name.full_with_opf}</Form.Label>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -80,13 +89,13 @@ class Step2 extends React.Component {
                     <Col sm>
                       <Form.Group controlId="formBasicEmail">
                           <Form.Label>Юридический адрес</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.address.unrestricted_value : ""}/>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.address.unrestricted_value : this.state.isEmpty ? '' : this.props.client.data.data.address.unrestricted_value}/>
                       </Form.Group>
                     </Col>
                     <Col sm>
                       <Form.Group controlId="formBasicEmail">
                           <Form.Label>Адрес фактического местонахождения</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.address.unrestricted_value : ""}/>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.address.unrestricted_value : this.state.isEmpty ? '' : this.props.client.data.data.address.unrestricted_value}/>
                           <input type="checkbox" id="claims" checked/>
                           <label>&nbsp;&nbsp;&nbsp;Совпадает с юридическим адресом</label>
                       </Form.Group>
@@ -95,26 +104,26 @@ class Step2 extends React.Component {
                   <Row>
                     <Col sm>
                       <Form.Group controlId="formBasicEmail">
-                          <Form.Label>Организационно-правовая форма</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.opf.full : ""} disabled/>
+                          <Form.Label>Организ.-правовая форма</Form.Label>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.opf.full : this.state.isEmpty ? '' : this.props.client.data.data.opf.full} disabled/>
                       </Form.Group>
                     </Col>
                     <Col sm>
                       <Form.Group controlId="formBasicEmail">
                           <Form.Label>ИНН компании</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.inn : ""} disabled/>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.inn : this.state.isEmpty ? '' : this.props.client.inn} disabled/>
                       </Form.Group>
                     </Col>
                     <Col sm> 
                       <Form.Group controlId="formBasicEmail">
                           <Form.Label>ОГРН компании</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.ogrn : ""} disabled/>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.ogrn : this.state.isEmpty ? '' : this.props.client.ogrn} disabled/>
                       </Form.Group>
                     </Col>
                     <Col sm> 
                       <Form.Group controlId="formBasicEmail">
                           <Form.Label>КПП компании</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.kpp : ""} disabled/>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.kpp : this.state.isEmpty ? '' : this.props.client.data.data.kpp} disabled/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -122,19 +131,19 @@ class Step2 extends React.Component {
                     <Col sm>
                       <Form.Group controlId="formBasicPassword">
                           <Form.Label>Код и наименование осн. вида деятельности</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.okved : ""} disabled/>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.okved : this.state.isEmpty ? '' : this.props.client.data.data.okved} disabled/>
                       </Form.Group>
                     </Col>
                     <Col sm>
                       <Form.Group controlId="retypeBasicPassword">
                           <Form.Label>Чем именно занимается компания</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.okved : ""} disabled/>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.okved : this.state.isEmpty ? '' : this.props.client.data.data.okved} disabled/>
                       </Form.Group>
                     </Col>
                     <Col sm>
                       <Form.Group controlId="retypeBasicPassword">
                           <Form.Label>Дата регистрации</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? format(new Date(this.state.company.data.state.registration_date), "dd.mm.yyyy") : ""} disabled/>
+                          <Form.Control type="text" value={this.state.flag ? format(new Date(this.state.company.data.state.registration_date), "dd.mm.yyyy") : this.state.isEmpty ? '' : format(new Date(this.props.client.data.data.state.registration_date), "dd.mm.yyyy")} disabled/>
                       </Form.Group>
                     </Col>
                   </Row>

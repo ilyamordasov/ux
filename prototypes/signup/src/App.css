@@ -5,3 +5,15 @@
 .text-muted {
   color: #ff0000;
 }
+
+.react-datepicker-wrapper, .react-datepicker__input-container {
+  display: block;
+}
+
+.react-datepicker__input-container {
+  width: inherit;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
