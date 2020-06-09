@@ -62,7 +62,7 @@ class Step1 extends React.Component {
                   </div>
                   <br/>
                   <div style={{ display:"flex", justifyContent: "center", alignItems: "center" }} >
-                    <Link to={"/step2/" + this.state.email}>
+                    <Link to={"/step2"}>
                       <Button variant="primary">Продолжить?</Button>
                     </Link>
                   </div>

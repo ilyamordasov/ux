@@ -1,0 +1,16 @@
+{
+  "timeZone": "Europe/Moscow",
+  "dependencies": {
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "dataStudio": {
+    "name": "DASHBOARD for BG (CLOUDFORT)",
+    "logoUrl": "https://izumfin.com/images/logo-izum-white.png?crc=81474440",
+    "company": "КИВИ ПРОЦЕСИНГ",
+    "companyUrl": "https://izumfin.com",
+    "addonUrl": "https://izumfin.com",
+    "supportUrl": "https://izumfin.com",
+    "description": "Электронные гарантии для МСБ (Cloudfort)"
+  }
+}

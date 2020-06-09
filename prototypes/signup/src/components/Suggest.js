@@ -13,7 +13,7 @@ const getSuggestionValue = suggestion => suggestion.name;
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
   <span>
-    {suggestion.name}
+    {suggestion.name} {suggestion.inn ? <span>(ИНН: {suggestion.inn})</span> : ""}
   </span>
 );
 
@@ -46,6 +46,29 @@ class Suggest extends React.Component {
       <Form.Control {...inputProps} type="text" placeholder={this.props.placeholder}/>
     </div>
   );
+
+  getDataByINN = ({value}) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Token "+process.env.REACT_APP_DADATA);
+    myHeaders.append("Content-Type", "application/json");
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify({"query":value}),
+      redirect: 'follow'
+    };
+    let languages = [];
+    fetch("https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/party", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        result.suggestions.map(element => {
+          languages.push({name: element.value, inn:element.data.inn, ogrn:element.data.ogrn, data:element});
+        });
+        this.setState({ suggestions: languages });
+      })
+      .catch(error => console.log('error', error));
+  };
 
   // Autosuggest will call this function every time you need to update suggestions.
   // You already implemented this logic above, so just use it.
@@ -83,6 +106,9 @@ class Suggest extends React.Component {
 
   onSuggestionSelected = (event, { suggestion }) => {
     if(this.props.callback) {
+      // if (this.props.method == "party") {
+      //   this.getDataByINN(suggestion.inn);
+      // }
       this.props.callback(suggestion);
     }
   };
