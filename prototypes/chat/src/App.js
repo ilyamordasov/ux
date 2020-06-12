@@ -11,8 +11,29 @@ class App extends React.Component {
   }
 
   handleNewUserMessage = (message) => {
-    console.log('New message');
-  };
+    console.log(message);
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Basic " + process.env.ZULIP_TOKEN);
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("type", "stream");
+    urlencoded.append("to", "test");
+    urlencoded.append("content", message);
+    urlencoded.append("subject", "+79030000000");
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: 'follow'
+    };
+
+    fetch(process.env.ZULIP_URL, requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error))
+  }
 
   render() {
     return (
