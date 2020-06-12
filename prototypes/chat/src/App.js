@@ -13,7 +13,7 @@ class App extends React.Component {
   handleNewUserMessage = (message) => {
     console.log(message);
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Basic " + process.env.ZULIP_TOKEN);
+    myHeaders.append("Authorization", "Basic " + process.env.REACT_APP_ZULIP_TOKEN);
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
@@ -29,7 +29,7 @@ class App extends React.Component {
       redirect: 'follow'
     };
 
-    fetch(process.env.ZULIP_URL, requestOptions)
+    fetch(process.env.REACT_APP_ZULIP_URL, requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error))
