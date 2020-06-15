@@ -79,7 +79,10 @@ class App extends React.Component {
         for (const stream of res.streams) {
           streams.push({name:stream.name, invite_only:stream.invite_only});
         }
-        this.setState({channels:streams, channel:streams[0].name});
+        if (streams.length === 0)
+          this.setState({channel:'test'});
+        else
+          this.setState({channels:streams, channel:streams[0].name});
       });
     });
   }
