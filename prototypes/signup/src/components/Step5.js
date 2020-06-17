@@ -192,6 +192,16 @@ class Step5 extends React.Component {
                 </Form>
               </Col>
             </Row>
+            <Row style={{height:100}}></Row>
+            <Row>
+                <Col>
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
+                    <Link to="/step6">
+                      <Button variant="primary">Отправить на согласование</Button>
+                    </Link>
+                  </div>
+                </Col>
+            </Row>
         </Container>
       );
     }

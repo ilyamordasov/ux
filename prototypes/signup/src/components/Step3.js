@@ -92,7 +92,7 @@ class Step3 extends React.Component {
                     <Col sm>
                       <Form.Group controlId="formBasicEmail">
                           <Form.Label>Номер расчетного счета</Form.Label>
-                          <Form.Control type="text" value=""/>
+                          <Form.Control type="text"/>
                       </Form.Group>
                     </Col>
                     <Col>
