@@ -59,6 +59,7 @@ class Step3 extends React.Component {
                 <br/>
               </Col>
             </Row>
+            <Row>
               <Col>
                 <h1>Запрос лимита</h1><br/><br/><br/>
                 { 
