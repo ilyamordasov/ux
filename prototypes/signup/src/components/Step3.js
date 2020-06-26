@@ -68,46 +68,55 @@ class Step3 extends React.Component {
             </Row>
             <Row>
               <Col>
-                <h1>Банки, в которых открыты расчетные счета компании</h1><br/><br/><br/>
-                <Form>
+                <h1>Запрос лимита</h1><br/><br/><br/>
+                { 
+                  this.props.debitors.map(item => {
+                  return <Form>
                   <Row>
                     <Col sm>
                       <Form.Group controlId="formBasicEmail">
-                          <Form.Label>Наименование банка</Form.Label>
-                          <Suggest placeholder="Введите название, БИК, SWIFT или ИНН" callback={this.setData} method="bank"/>
+                          <Form.Label>Покупатель</Form.Label>
+                          <Suggest placeholder="ИНН или наименование компании" callback={this.setData} method="party" value={item.name}/>
                       </Form.Group>
                     </Col>
                     <Col sm>
                       <Form.Group controlId="formBasicEmail">
-                          <Form.Label>БИК</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.bic : ""} disabled/>
+                          <Form.Label>Лимит (руб.)</Form.Label>
+                          <Form.Control type="text" value={(Math.floor(Math.random() * 15000000) + 1000000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}/>
                       </Form.Group>
                     </Col>
                     <Col sm>
                       <Form.Group controlId="formBasicEmail">
-                          <Form.Label>Номер корр. счета</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.correspondent_account : ""} disabled/>
-                      </Form.Group>
-                    </Col>
-                    <Col sm>
-                      <Form.Group controlId="formBasicEmail">
-                          <Form.Label>Номер расчетного счета</Form.Label>
+                          <Form.Label>Отсрочка (калед. дней)</Form.Label>
                           <Form.Control type="text"/>
+                          <Form.Group>
+                              <input type="checkbox" id="claims"/>
+                              <label>&nbsp;&nbsp;&nbsp;Банковских дней</label>
+                          </Form.Group>
                       </Form.Group>
                     </Col>
-                    <Col>
-                      <Form.Label> </Form.Label><br/>
-                      <Button variant="light">+</Button>
+                    <Col sm>
+                      <Form.Group controlId="formBasicEmail">
+                        <Form.Label> .</Form.Label><br/>
+                        <Button variant="warning">Загрузить скан</Button>
+                      </Form.Group>
+                    </Col>
+                    <Col sm>
+                      <Form.Group controlId="formBasicEmail">
+                        <Form.Label> .</Form.Label><br/>
+                        <Button variant="outline-danger">X</Button>
+                      </Form.Group>
                     </Col>
                   </Row>
                 </Form>
+                })}
               </Col>
             </Row>
             <Row>
                 <Col>
                   <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
                     <Link to="/step4">
-                      <Button variant="primary">Далее</Button>
+                      <Button variant="primary">Отправить на согласование</Button>
                     </Link>
                   </div>
                 </Col>

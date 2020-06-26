@@ -6,48 +6,41 @@ import {
   Link
 } from "react-router-dom";
 
-import Form1 from "./components/Form1";
+import Form0 from "./components/Form0";
+import Step0 from "./components/Step0";
 import Step1 from "./components/Step1";
 import Step2 from "./components/Step2";
 import Step3 from "./components/Step3";
 import Step4 from "./components/Step4";
-import Step5 from "./components/Step5";
-import Step6 from "./components/Step6";
-import ChangePW from "./components/ChangePW";
 import Chat from './components/Chat';
 
 export default function App() {
   const [client, setClient] = useState({});
   const [email, setEmail] = useState('');
+  const [debitors, setDebitors] = useState([]);
 
   return (
     <Router>
       <div>
 
         <Switch>
-          <Route path="/change">
-            <ChangePW client={client} email={email}/>
-          </Route>
-          <Route path="/step6">
-            <Step6 client={client} email={email}/>
-          </Route>
-          <Route path="/step5">
-            <Step5 client={client} email={email}/>
-          </Route>
           <Route path="/step4">
-            <Step4 client={client} email={email}/>
+            <Step4 client={client} email={email} debitors={debitors}/>
           </Route>
           <Route path="/step3">
-            <Step3 client={client} email={email}/>
+            <Step3 client={client} email={email} debitors={debitors}/>
           </Route>
           <Route path="/step2">
-            <Step2 client={client} email={email}/>
+            <Step2 client={client} email={email} debitors={debitors}/>
           </Route>
           <Route path="/step1">
-            <Step1 client={client} email={email}/>
+            <Step1 client={client} email={email} debitors={debitors}/>
+          </Route>
+          <Route path="/step0">
+            <Step0 client={data => setClient(data)} email={val => setEmail(val)} debitors={data => setDebitors(data)}/>
           </Route>
           <Route path="/">
-            <Form1 client={data => setClient(data)} email={val => setEmail(val)}/>
+            <Form0 />
           </Route>
         </Switch>
       </div>

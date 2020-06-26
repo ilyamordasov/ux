@@ -8,7 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button,Form,InputGroup} from 'react-bootstrap';
 import {Container,Row,Col} from 'react-bootstrap';
 
-import { format } from 'date-fns'
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 import Suggest from '../components/Suggest';
 
@@ -21,7 +22,8 @@ class Step2 extends React.Component {
         company: {},
         email: this.props.email,
         flag: false,
-        isEmpty: false
+        isEmpty: false,
+        DoB: new Date()
       };
 
       if (Object.keys(this.props.client).length === 0 && this.props.client.constructor === Object) {
@@ -32,6 +34,7 @@ class Step2 extends React.Component {
     setData = (value) => {
       this.setState({flag:true});
       this.setState({company:value.data});
+      console.log(value)
     };
   
     render() {
@@ -79,9 +82,7 @@ class Step2 extends React.Component {
                     <Col sm>
                       <Form.Group controlId="formBasicEmail">
                           <Form.Label>Наименование компании</Form.Label>
-                          {console.log("ssss")}
-                          <Suggest placeholder="ИНН или наименование компании" callback={this.setData} method="party" value={this.state.isEmpty ? '' : this.props.client.data.value}/>
-                          <Form.Label>{this.state.flag ? this.state.company.data.name.full_with_opf : this.state.isEmpty ? '' : this.props.client.data.data.name.full_with_opf}</Form.Label>
+                          <Suggest placeholder="ИНН или наименование компании" callback={this.setData} method="party" value={this.state.isEmpty ? '' : this.props.client.data.value} color="false"/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -101,69 +102,32 @@ class Step2 extends React.Component {
                       </Form.Group>
                     </Col>
                   </Row>
+                </Form>
+              </Col>
+            </Row>
+            <Row style={{height:50}}></Row>
+            <Row>
+              <Col>
+                <Form>
                   <Row>
                     <Col sm>
                       <Form.Group controlId="formBasicEmail">
-                          <Form.Label>Организ.-правовая форма</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.opf.full : this.state.isEmpty ? '' : this.props.client.data.data.opf.full} disabled/>
-                      </Form.Group>
-                    </Col>
-                    <Col sm>
-                      <Form.Group controlId="formBasicEmail">
-                          <Form.Label>ИНН компании</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.inn : this.state.isEmpty ? '' : this.props.client.inn} disabled/>
-                      </Form.Group>
-                    </Col>
-                    <Col sm> 
-                      <Form.Group controlId="formBasicEmail">
-                          <Form.Label>ОГРН компании</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.ogrn : this.state.isEmpty ? '' : this.props.client.ogrn} disabled/>
-                      </Form.Group>
-                    </Col>
-                    <Col sm> 
-                      <Form.Group controlId="formBasicEmail">
-                          <Form.Label>КПП компании</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.kpp : this.state.isEmpty ? '' : this.props.client.data.data.kpp} disabled/>
+                          <Form.Label>ФИО руководителя</Form.Label>
+                          <Suggest placeholder="Введите полность Фамилию, Имя и Отчество" callback={this.setData} method="fio" value={this.state.flag ? this.state.company.data.management.name : this.state.isEmpty ? '' : this.props.client.data.data.management.name} color="false"/>
                       </Form.Group>
                     </Col>
                   </Row>
                   <Row>
                     <Col sm>
-                      <Form.Group controlId="formBasicPassword">
-                          <Form.Label>Код и наименование осн. вида деятельности</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.okved : this.state.isEmpty ? '' : this.props.client.data.data.okved} disabled/>
+                      <Form.Group controlId="formBasicEmail">
+                          <Form.Label>Должность руководителя</Form.Label>
+                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.management.post : this.state.isEmpty ? '' : this.props.client.data.data.management.post}/>
                       </Form.Group>
                     </Col>
                     <Col sm>
-                      <Form.Group controlId="retypeBasicPassword">
-                          <Form.Label>Чем именно занимается компания</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? this.state.company.data.okved : this.state.isEmpty ? '' : this.props.client.data.data.okved} disabled/>
-                      </Form.Group>
-                    </Col>
-                    <Col sm>
-                      <Form.Group controlId="retypeBasicPassword">
-                          <Form.Label>Дата регистрации</Form.Label>
-                          <Form.Control type="text" value={this.state.flag ? format(new Date(this.state.company.data.state.registration_date), "dd.mm.yyyy") : this.state.isEmpty ? '' : format(new Date(this.props.client.data.data.state.registration_date), "dd.mm.yyyy")} disabled/>
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col sm>
-                      <Form.Group controlId="formBasicPassword">
-                          <Form.Label>Вебсайт</Form.Label>
-                          <Form.Control type="text" value=""/>
-                      </Form.Group>
-                    </Col>
-                    <Col sm>
-                      <Form.Group controlId="retypeBasicPassword">
-                          <Form.Label>Email</Form.Label>
-                          <Form.Control type="text" value=""/>
-                      </Form.Group>
-                    </Col>
-                    <Col sm>
-                      <Form.Group controlId="retypeBasicPassword">
-                          <Form.Label>Телефон</Form.Label>
-                          <Form.Control type="text" value=""/>
+                      <Form.Group controlId="formBasicEmail">
+                          <Form.Label>Дата рождения</Form.Label><br/>
+                          <DatePicker onChange={date => {this.setState({DoB: date})}} customInput={<Form.Control type="text" value=""/>} dateFormat="dd.MM.yyyy"/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -174,7 +138,7 @@ class Step2 extends React.Component {
                 <Col>
                   <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
                     <Link to="/step3">
-                      <Button variant="primary">Далее</Button>
+                      <Button variant="primary">Все верно?</Button>
                     </Link>
                   </div>
                 </Col>

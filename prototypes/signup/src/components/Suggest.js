@@ -5,27 +5,34 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {Button,Form} from 'react-bootstrap';
 
-// When suggestion is clicked, Autosuggest needs to populate the input
-// based on the clicked suggestion. Teach Autosuggest how to calculate the
-// input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion.name;
-
-// Use your imagination to render suggestions.
-const renderSuggestion = suggestion => (
-  <span>
-    {suggestion.name} {suggestion.inn ? <span>(ИНН: {suggestion.inn})</span> : ""}
-  </span>
-);
-
 class Suggest extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       value: this.props.value ? this.props.value : '',
-      suggestions: []
+      suggestions: [],
+      colors: ["#ff0000", "#0acf83"],
+      debitors: [],
+      input: ''
     };
   }
+
+  getSuggestionValue = suggestion => suggestion.name;
+
+  // Use your imagination to render suggestions.
+  renderSuggestion = (suggestion) => {
+    var c = this.state.colors[Math.floor(Math.random() * this.state.colors.length)];
+    return (
+    <div style={ (this.props.color !== undefined && this.props.color === "true") ? {backgroundColor:c} : null}>
+      <span>{suggestion.name} </span>
+      {
+        suggestion.inn ? 
+          <span>(ИНН: {suggestion.inn} - { c === "#ff0000" ? "К сожалению пока мимо" : "Доступны решения с Регресс, Безрегресс, Быстрый старт"})</span>
+        : ""      
+      }
+  </div>
+)};
 
   onChange = (event, { newValue }) => {
     this.setState({
@@ -42,9 +49,7 @@ class Suggest extends React.Component {
   }
 
   renderInputComponent = inputProps => (
-    <div>
-      <Form.Control {...inputProps} type="text" placeholder={this.props.placeholder}/>
-    </div>
+    <Form.Control {...inputProps} type="text" placeholder={this.props.placeholder}/>
   );
 
   getDataByINN = ({value}) => {
@@ -72,7 +77,7 @@ class Suggest extends React.Component {
 
   // Autosuggest will call this function every time you need to update suggestions.
   // You already implemented this logic above, so just use it.
-  onSuggestionsFetchRequested = ({ value }) => {
+  onSuggestionsFetchRequested = ({value}) => {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Token "+process.env.REACT_APP_DADATA);
     myHeaders.append("Content-Type", "application/json");
@@ -83,12 +88,12 @@ class Suggest extends React.Component {
       body: JSON.stringify({"query":value}),
       redirect: 'follow'
     };
+    console.log(value)
     if (value.length > 3) {
       let languages = [];
       fetch("https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/"+this.props.method, requestOptions)
         .then(response => response.json())
         .then(result => {
-          console.log(process.env.REACT_APP_DADATA)
           result.suggestions.map(element => {
             languages.push({name: element.value, inn:element.data.inn, ogrn:element.data.ogrn, data:element});
           });
@@ -106,11 +111,16 @@ class Suggest extends React.Component {
   };
 
   onSuggestionSelected = (event, { suggestion }) => {
+    console.log("sfks")
+    var arr = this.state.debitors;
+    arr.push(suggestion.name);
+    this.setState({debitors: arr, input: ''});
     if(this.props.callback) {
       // if (this.props.method == "party") {
       //   this.getDataByINN(suggestion.inn);
       // }
       this.props.callback(suggestion);
+      this.onSuggestionsClearRequested();
     }
   };
 
@@ -130,8 +140,8 @@ class Suggest extends React.Component {
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
+        getSuggestionValue={this.getSuggestionValue}
+        renderSuggestion={this.renderSuggestion}
         renderInputComponent={this.renderInputComponent}
         renderSuggestionsContainer={this.renderSuggestionsContainer}
         onSuggestionSelected={this.onSuggestionSelected}

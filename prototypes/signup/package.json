@@ -24,6 +24,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
     "react-stepper-horizontal": "^1.0.11",
+    "react-tageditor": "^0.2.3",
     "react-toggle": "^4.1.1",
     "validate.js": "^0.13.1",
     "zulip-js": "^2.0.8"
