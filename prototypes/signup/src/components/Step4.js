@@ -47,7 +47,7 @@ class Step4 extends React.Component {
             <Row style={{height:100}}>
                 <Col>
                 <Link to="/">
-                        <img src="https://factoringplus.ru/images/logo.svg"></img>
+                        <img src="https://factoringplus.ru/images/logo.svg" alt=""/>
                     </Link>
                 </Col>
                 <Col style={{right:0}}>
@@ -62,13 +62,6 @@ class Step4 extends React.Component {
                       <Form.Control type="text" value="http://fplus.ru/jsd64d" />
                     </InputGroup>
                   </Form.Group>
-                </Col>
-                <Col>
-                  <Link to="/form0">
-                    <Button variant="light">
-                        Закончить позже
-                    </Button>
-                  </Link>
                 </Col>
             </Row>
             <Row style={{height:100}}></Row>

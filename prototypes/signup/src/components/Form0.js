@@ -113,7 +113,7 @@ class Form1 extends React.Component {
                     </Link>
                 </Col>
                 <Col sm>
-                    <img src="../money.jpg"/>
+                    <img src="../money.jpg" alt=""/>
                 </Col>
             </Row>
         </Container>

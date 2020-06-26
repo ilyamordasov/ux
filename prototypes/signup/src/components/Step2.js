@@ -43,7 +43,7 @@ class Step2 extends React.Component {
             <Row style={{height:100}}>
                 <Col>
                   <Link to="/">
-                    <img src="https://factoringplus.ru/images/logo.svg"></img>
+                    <img src="https://factoringplus.ru/images/logo.svg" alt=""/>
                   </Link>
                 </Col>
                 <Col style={{right:0}}>
@@ -59,18 +59,11 @@ class Step2 extends React.Component {
                     </InputGroup>
                   </Form.Group>
                 </Col>
-                <Col>
-                  <Link to="/form0">
-                    <Button variant="light">
-                        Закончить позже
-                    </Button>
-                  </Link>
-                </Col>
             </Row>
             <Row style={{height:100}}></Row>
             <Row>
               <Col>
-              <Stepper steps={ [{title: 'Общие данные'}, {title: 'Банки, в которых открыты р/с компании'}, {title: 'Руководитель организации'}, {title: 'Учредители организации'}] } activeStep={ 0 } />
+              <Stepper steps={ [{title: 'Общие данные'}, {title: 'Запрос лимита'}] } activeStep={ 0 } />
                 <br/>
               </Col>
             </Row>

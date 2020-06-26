@@ -56,7 +56,7 @@ class Step0 extends React.Component {
             <Row style={{height:200}}>
                 <Col>
                     <Link to="/">
-                        <img src="https://factoringplus.ru/images/logo.svg"></img>
+                        <img src="https://factoringplus.ru/images/logo.svg" alt=""></img>
                     </Link>
                 </Col>
                 <Col style={{right:0}}>
