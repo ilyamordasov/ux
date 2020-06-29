@@ -22,7 +22,7 @@ class Suggest extends React.Component {
 
   // Use your imagination to render suggestions.
   renderSuggestion = (suggestion) => {
-    var c = this.state.colors[Math.floor(Math.random() * this.state.colors.length)];
+    var c = suggestion.data.data.name.full.charAt(0).toLowerCase() === "б" ? this.state.colors[0] : this.state.colors[1]
     return (
     <div style={ (this.props.color !== undefined && this.props.color === "true") ? {backgroundColor:c} : null}>
       <span>{suggestion.name} </span>

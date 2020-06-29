@@ -13,6 +13,20 @@ function getConfig() {
   .setHelpText("We'll retrive data from entered URL")
   .setPlaceholder('')
   .setAllowOverride(true);
+  
+  config.newTextInput()
+  .setId('min_sum')
+  .setName('Fill out the MIN sum of guarantee')
+  .setHelpText('We will limit the data')
+  .setPlaceholder('')
+  .setAllowOverride(true)
+  
+  config.newTextInput()
+  .setId('max_sum')
+  .setName('Fill out the MAX sum of guarantee')
+  .setHelpText('We will limit the data')
+  .setPlaceholder('')
+  .setAllowOverride(true)
 
   config.setDateRangeRequired(true);
 

@@ -1,0 +1,33 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Merge Label Component",
+            "type": "shell",
+            "command": "rm -rf labelViz.js && sleep 1 && cat dscc.min.js *.js > labelViz.js",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/dashboard/components/label"
+            }
+        },
+        {
+            "label": "Deploy Label Component",
+            "type": "shell",
+            "command": "/home/im/google-cloud-sdk/bin/gsutil cp -a public-read labelViz.js gs://izumfin-components/",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/dashboard/components/label"
+            }
+        }
+    ]
+}

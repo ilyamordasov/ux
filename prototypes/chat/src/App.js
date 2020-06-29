@@ -60,6 +60,7 @@ class App extends React.Component {
 
   handleNewUserMessage = (message) => {
     zulip(this.config).then(async (client) => {
+      console.log("passed")
       var requestOptions = {
         to: this.state.channel,
         type: 'stream',
@@ -67,7 +68,7 @@ class App extends React.Component {
         content: message
       };
       return await client.messages.send(requestOptions);
-    });
+    }).then(console.log);
     fetch('https://hooks.slack.com/services/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', {
       method: 'POST',
       mode: 'no-cors',

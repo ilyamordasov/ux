@@ -1,0 +1,27 @@
+{
+    "name": "Izumfin Visualization Package",
+    "organization": "FactoringPlus, LLC",
+    "description": "A package of cool visualizations.",
+    "logoUrl": "https://url",
+    "organizationUrl": "https://url",
+    "supportUrl": "https://url",
+    "privacyPolicyUrl": "https://url",
+    "termsOfServiceUrl": "https://url",
+    "packageUrl": "https://url",
+    "devMode": true,
+    "components": [
+        {
+            "id": "label",
+            "name": "Label",
+            "description": "Display text",
+            "iconUrl": "https://url.png",
+            "infoUrl": "https://url",
+            "resource": {
+                "js": "gs://izumfin-components/labelViz.js",
+                "config": "gs://izumfin-components/labelViz.json",
+                "css": "gs://izumfin-components/labelViz.css"
+            }
+        }
+    ]
+}
+  

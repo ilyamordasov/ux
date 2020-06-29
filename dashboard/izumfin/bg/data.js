@@ -30,6 +30,12 @@ function getCustomFields(parsedResponse) {
   return fields;
 }
 
+function getDataFromAPI(url) {
+  var response = UrlFetchApp.fetch(url);
+  var jsn = JSON.parse(response.getContentText());
+  return jsn;
+}
+
 function responseToData(requestedFields, response) {
   response.data = response.data.filter(function (el) {
     return el.sum != 0;

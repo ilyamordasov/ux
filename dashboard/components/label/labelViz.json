@@ -1,0 +1,20 @@
+{
+    "data": [
+        {
+            "id": "concepts",
+            "label": "Concepts",
+            "elements": [
+                {
+                    "id": "twoDimensionsPlease",
+                    "label": "Dimension Element Heading",
+                    "type": "DIMENSION",
+                    "options": {
+                      "min": 2,
+                      "max": 2
+                    }
+                }
+                  
+            ]
+        }
+    ]
+}

@@ -10,6 +10,11 @@ function getCustomFields(parsedResponse) {
       .setType(types.YEAR_MONTH_DAY);
   
   fields.newMetric()
+      .setId('date_text')
+      .setName('Период')
+      .setType(types.TEXT);
+  
+  fields.newMetric()
       .setId('sum_g')
       .setName('Сумма гарантий')
       .setType(types.NUMBER)
@@ -36,6 +41,18 @@ function getCustomFields(parsedResponse) {
   return fields;
 }
 
+function getDataFromAPI(url) {
+  var response = UrlFetchApp.fetch(url);
+  var jsn = JSON.parse(response.getContentText());
+  return jsn;
+}
+
+function addLabel(data, value) {
+  data.forEach(element => {
+     element.date_text = value;
+  });
+}
+
 function responseToData(requestedFields, response) {
   response.data = response.data.filter(function (el) {
     return el.sum != 0;
@@ -46,6 +63,7 @@ function responseToData(requestedFields, response) {
     requestedFields.asArray().forEach(function(field) {
       switch (field.getId()) {
         case 'date': return row.push(item.date);
+        case 'date_text': return row.push(item.date_text);
         case 'sum_g': return row.push(item.sum_g);
         case 'count_g': return row.push(item.count_g);
         case 'count_unique_winner': return row.push(item.count_unique_winner);
