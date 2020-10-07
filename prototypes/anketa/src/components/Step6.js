@@ -14,16 +14,19 @@ class Step6 extends React.Component {
             this.state = {
                 bank1: '',
                 ks1: '',
-                ks2: ''
+                ks2: '',
+                index: 0
             };
         }
         else {
             this.state = {
                 bank1: '',
                 ks1: '',
-                ks2: ''
+                ks2: '',
+                index: 0
             }
         }
+        this.setState({index:5});
     }
   
     render() {

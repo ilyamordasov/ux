@@ -17,7 +17,8 @@ class Step5 extends React.Component {
                 bank1: '',
                 ks1: '',
                 ks2: '',
-                ks3: ''
+                ks3: '',
+                index: 0
             };
         }
         else {
@@ -25,9 +26,11 @@ class Step5 extends React.Component {
                 bank1: '',
                 ks1: '',
                 ks2: '',
-                ks3: ''
+                ks3: '',
+                index: 0
             }
         }
+        this.setState({index:4});
     }
 
     setData = value => {

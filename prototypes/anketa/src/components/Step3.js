@@ -17,7 +17,8 @@ class Step3 extends React.Component {
                 fio: this.props.client.data.data.type == "LEGAL" ? data.management.name : '',
                 post: this.props.client.data.data.type == "LEGAL" ? data.management.post : '',
                 isChecked: false,
-                isContact: false
+                isContact: false,
+                index: 0
             };
         }
         else {
@@ -25,9 +26,11 @@ class Step3 extends React.Component {
                 fio: '',
                 post: '',
                 isChecked: false,
-                isContact: false
+                isContact: false,
+                index: 0
             }
         }
+        this.setState({index:2});
     }
 
     handleChange = () => {

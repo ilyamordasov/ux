@@ -47,7 +47,7 @@ function App() {
               <Route path="/step2">
                 <Step2 client={client} step={data => setStep(data)}/>
               </Route>
-              <Route path="/">
+              <Route path="/step1">
                 <Step1 client={data => setClient(data)} step={data => setStep(data)}/>
               </Route>
             </Col>

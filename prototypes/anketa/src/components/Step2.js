@@ -21,7 +21,8 @@ class Step2 extends React.Component {
                 isBenif: false,
                 isChecked: false,
                 regAddr: '',
-                code: ''
+                code: '',
+                index: 0
             };
         }
         else {
@@ -33,9 +34,11 @@ class Step2 extends React.Component {
                 isBenif: false,
                 isChecked: false,
                 regAddr: '',
-                code: ''
+                code: '',
+                index: 0
             }
         }
+        this.setState({index:1});
     }
 
     handleChange = () => {

@@ -22,9 +22,11 @@ class Step1 extends React.Component {
         INN: '',
         OGRN: '',
         OGRN_date: '',
-        type: 'LEGAL'
+        type: 'LEGAL',
+        index: 0
       };
       this.props.step(0);
+      this.setState({index:0});
     }
 
     formatDate = value => {
