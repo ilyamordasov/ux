@@ -8,7 +8,7 @@ class Step6 extends React.Component {
 
     constructor(props) {
         super(props);
-        this.props.step(4);
+        this.props.step(5);
         if (Object.keys(this.props.client).length > 0) {
             let data = this.props.client.data.data;
             this.state = {
