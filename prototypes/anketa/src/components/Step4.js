@@ -15,15 +15,18 @@ class Step4 extends React.Component {
             let data = this.props.client.data.data;
             this.state = {
                 isChecked: false,
-                regAddr: ''
+                regAddr: '',
+                index: 0
             };
         }
         else {
             this.state = {
                 isChecked: false,
-                regAddr: ''
+                regAddr: '',
+                index: 0
             }
         }
+        this.setState({index:3});
     }
 
     handleRegAddr = e => {
