@@ -72,7 +72,40 @@ class Step4 extends React.Component {
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey="0">
                             <Card.Body>
-                                Need to fill!
+                                <Row>
+                                    <Col>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>КПП</Form.Label>
+                                            <Form.Control type="text" value="7674754746"/>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>Юридический адрес</Form.Label>
+                                            <Form.Control type="text" value="г. Москва"/>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>Телефон</Form.Label>
+                                            <Form.Control type="text" value="+7 495 000 00 00"/>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>ФИО руководителя</Form.Label>
+                                            <Form.Control type="text" value="Набиуллина Эльвира Сахипзадовна"/>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>Должность руководителя</Form.Label>
+                                            <Form.Control type="text" value="Председатель банка России"/>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
                             </Card.Body>
                         </Accordion.Collapse>
                     </Card>

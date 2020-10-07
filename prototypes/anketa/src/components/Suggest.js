@@ -81,7 +81,7 @@ class Suggest extends React.Component {
       body: JSON.stringify({"query":value}),
       redirect: 'follow'
     };
-    console.log(value)
+
     if (value.length > 3) {
       let languages = [];
       fetch("https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/"+this.props.method, requestOptions)
@@ -104,7 +104,6 @@ class Suggest extends React.Component {
   };
 
   onSuggestionSelected = (event, { suggestion }) => {
-    console.log("sfks")
     var arr = this.state.debitors;
     arr.push(suggestion.name);
     this.setState({debitors: arr, input: ''});

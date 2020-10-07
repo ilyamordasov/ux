@@ -14,8 +14,8 @@ class Step3 extends React.Component {
         if (Object.keys(this.props.client).length > 0) {
             let data = this.props.client.data.data;
             this.state = {
-                fio: data.management.name,
-                post: data.management.post,
+                fio: this.props.client.data.data.type == "LEGAL" ? data.management.name : '',
+                post: this.props.client.data.data.type == "LEGAL" ? data.management.post : '',
                 isChecked: false,
                 isContact: false
             };
@@ -43,33 +43,36 @@ class Step3 extends React.Component {
             <label>ШАГ 3 из 6</label>
             <h3>Контактные лица для связи</h3>
             <br/><br/>
-            <h4>{this.state.post}</h4>
-            <Row>
-                <Col>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>ФИО</Form.Label>
-                        <Form.Control type="text" defaultValue={this.state.fio}/>
-                    </Form.Group>
-                </Col>
-                <Col>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Номер телефона</Form.Label>
-                        <Form.Control type="text"/>
-                    </Form.Group>
-                </Col>
-                <Col>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Адрес электронной почты</Form.Label>
-                        <Form.Control type="text"/>
-                    </Form.Group>
-                </Col>
-                <Col>
-                    <Form.Check type="checkbox" label="Является главным бухгалтером" onChange={this.handleChange}/>
-                </Col>
-                <Col>
-                    <Form.Check type="checkbox" label="Основной контакт" onChange={this.handleContact}/>
-                </Col>
-            </Row>
+            { this.props.client.data.data.type == "LEGAL" ?
+            <div>
+                <h4>{this.state.post}</h4>
+                <Row>
+                    <Col>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>ФИО</Form.Label>
+                            <Form.Control type="text" defaultValue={this.state.fio}/>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>Номер телефона</Form.Label>
+                            <Form.Control type="text"/>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>Адрес электронной почты</Form.Label>
+                            <Form.Control type="text"/>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Check type="checkbox" label="Является главным бухгалтером" onChange={this.handleChange}/>
+                    </Col>
+                    <Col>
+                        <Form.Check type="checkbox" label="Основной контакт" onChange={this.handleContact}/>
+                    </Col>
+                </Row>
+            </div> : null }
             { !this.state.isChecked ? 
                 <div>
                     <br/><br/>
@@ -124,9 +127,19 @@ class Step3 extends React.Component {
             </Row>
             <Row>
                 <Col>
-                    <Link to="/step4">
-                      <Button variant="primary">Продолжить</Button>
-                    </Link>
+                    { this.props.client.data.data.type == "LEGAL" ?
+                    <div>
+                        <Link to="/step4">
+                        <Button variant="primary">Продолжить</Button>
+                        </Link>
+                    </div>
+                    :
+                    <div>
+                        <Link to="/step5">
+                        <Button variant="primary">Продолжить</Button>
+                        </Link>
+                    </div>
+                    }
                 </Col>
             </Row>
         </Container>
